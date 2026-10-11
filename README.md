@@ -107,3 +107,7 @@ Stock Switch settings are lowered: half-resolution textures, no far shadows, no 
 Delete `atmosphere/exefs_patches/nwn2_lan/` and `atmosphere/contents/01008E601E03C000/`.
 
 You need your own copy of the game. No game files are included except two modified menu UI files.
+
+---
+
+**License / Лицензия:** [MIT](LICENSE) — covers the patch, presets and docs of this repo. Neverwinter Nights 2 and its original files belong to their owners (Obsidian / Aspyr / Wizards of the Coast); the two menu `.xml` files are modified copies of game UI files, provided only for use with your own copy of the game.
