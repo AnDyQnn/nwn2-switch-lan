@@ -1,0 +1,20 @@
+# <offset in main>  <label>
+# build 3554C29951DDA41FE0AF61D3888DC3BB019764CA (NWN2 EE update v65536)
+
+# game creation and transport
+0x5826dc CreateGameAndConnect mode=w4 (0 single, 1 UDP, 2 Photon)
+0x5824ac ConnectToUdpServer
+0x8a4210 ServerNetInit photon_flag=w1
+0x445a80 Netlayer.SetUDP port=w1
+0x445cf0 Netlayer.SetPhoton
+0x3e3640 UdpFactory port=w1
+0x3ec838 UdpInit OK
+0x3ec854 UdpInit FAIL
+
+# NWN netlayer handshake
+0x3ed98c BNCS build (client connect)
+0x3ef47c BNCR build (server connect reply)
+0x3ef630 BNVS build (verify)
+0x3f1b50 BNVS handler conn=w1
+0x3ee024 BNVR send reason=w2
+0x447eb4 Validate result w0 (0 ok, 6 name in use)

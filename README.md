@@ -57,6 +57,9 @@
 
 Не меняйте графику в меню самой игры: она может перезаписать файл.
 
+### Для исследователей: отладка на живой консоли
+В папке [`tools/debug/`](tools/debug/) лежат инструменты, которыми искались правки патча: скрипт для отладчика Atmosphere (gdbstub). Он находит NWN2 на консоли, учитывает ASLR и ставит «тихие» брейкпоинты, которые пишут в лог вызовы сетевого кода. Там же прокси до консоли и проверка LAN-сервера с ПК. Это пригодится, чтобы перенести патч на другую версию игры или разобраться, почему что-то не работает. Подробности в [`tools/debug/README.md`](tools/debug/README.md). Обычному игроку это не нужно.
+
 ### Удаление
 Удалите `atmosphere/exefs_patches/nwn2_lan/` и `atmosphere/contents/01008E601E03C000/`.
 
@@ -102,6 +105,9 @@ On Switch the stock multiplayer only works through an online service (Photon) wi
 
 ### Optional: ultra graphics
 Stock Switch settings are lowered: half-resolution textures, no far shadows, no AA, 70% draw distance. `extras/graphics_ultra/nwn2.ini` raises everything (full textures, 16x aniso, all shadows at 2048, MSAA 4x, HDR, water reflections, normal-mapped terrain, 100% draw distance) and runs smoothly on Switch. Replace `nwn2.ini` inside the game's **save data** (DBI: `Saves → Installed games → … → <profile> → nwn2.ini`, or via a JKSV backup/restore). Back up the original first.
+
+### For researchers: live debugging
+[`tools/debug/`](tools/debug/) contains the tooling used to find the patch: a helper for the Atmosphere gdbstub that finds NWN2 on the console, handles ASLR and sets silent logging breakpoints on the network code, plus a gdbstub proxy and a LAN server probe. Useful for porting the patch to another game version. See [`tools/debug/README.md`](tools/debug/README.md).
 
 ### Uninstall
 Delete `atmosphere/exefs_patches/nwn2_lan/` and `atmosphere/contents/01008E601E03C000/`.
