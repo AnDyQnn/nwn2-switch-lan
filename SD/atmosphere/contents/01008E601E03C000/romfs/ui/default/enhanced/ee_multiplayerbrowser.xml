@@ -1,0 +1,345 @@
+<?xml version='1.0'?>
+<!-- Neverwinter Nights 2 -->
+<!-- Copyright (c) 2006 Obsidian Entertainment, Inc. -->
+
+<UIScene name='SCREEN_EE_BROWSER' enhanced='true' fadein='0.3' fadeout='0.3' idleexpiretime='1.0'
+         priority='SCENE_FE_FULLSCREEN' fullscreen='true' backoutkey='true'
+		 OnAdd0='UIScene_OnAdd_StartLANBrowser("SERVERS_LISTBOX")'
+		 OnAdd1='UIScene_OnAdd_SetPlayerTagWithPhotonRegion()'
+		 OnBackout='UIButton_Input_CancelServerBrowser("SCREEN_MULTIPLAYERMENU")'/>
+
+
+
+<UIPane name='PROMPT_CONTAINER' y='ALIGN_BOTTOM' height='92' width='PARENT_WIDTH'>
+	<UIGrid name='PROMPT_GRID' x='ALIGN_CENTER' height='60' rows='1' columns='7'>
+		<UIPane width='DYNAMIC' height='DYNAMIC'>
+			<UIButton name='JOIN_PROMPT' width='DYNAMIC' height='60' style='EE_MENU_PROMPT_BUTTON' margin_r='44'
+					  ClickHotkey='UI_ACTIVATE' strref='8133'
+					  OnLeftClick='UIButton_Input_ConnectToSession("SERVERS_LISTBOX","lan")'>
+			</UIButton>
+		</UIPane>
+		<UIPane width='DYNAMIC' height='DYNAMIC'>
+			<UIButton name='REFRESH_PROMPT' width='DYNAMIC' height='60' style='EE_MENU_PROMPT_BUTTON' margin_r='44'
+					  ClickHotkey='UI_CONTEXT_MENU' strref='67365'
+					  OnLeftClick='UIButton_Input_RefreshServerBrowser("SERVERS_LISTBOX")'>
+			</UIButton>
+		</UIPane>
+		<UIPane width='DYNAMIC' height='DYNAMIC'>
+			<UIButton name='FAVORITE_PROMPT' width='DYNAMIC' height='60' style='EE_MENU_PROMPT_BUTTON' margin_r='44'
+					  ClickHotkey='UI_HOTBAR' strref='181384'
+					  OnLeftClick='UIButton_Input_AddOrRemoveFavoriteServer("SERVERS_LISTBOX","true")'>
+			</UIButton>
+		</UIPane>
+		<UIPane width='DYNAMIC' height='DYNAMIC'>
+			<UIButton name='REMOVE_FAVORITE' width='DYNAMIC' height='60' style='EE_MENU_PROMPT_BUTTON' margin_r='44' hidden='true'
+					  ClickHotkey='UI_HOTBAR' strref='235417'
+					  OnLeftClick0='UIButton_Input_AddOrRemoveFavoriteServer("SERVERS_LISTBOX","false")'
+					  OnLeftClick1='UIButton_Input_ShowInternet()'>
+			</UIButton>
+		</UIPane>
+		<UIPane width='DYNAMIC' height='DYNAMIC'>
+			<UIButton name='FILTER_PROMPT' width='DYNAMIC' height='60' style='EE_MENU_PROMPT_BUTTON' margin_r='44'
+					  ClickHotkey='UI_SORT' strref='7929'
+					  OnLeftClick='UIButton_Input_ShowFilters()'>
+			</UIButton>
+		</UIPane>
+		<UIPane width='DYNAMIC' height='DYNAMIC'>
+			<UIButton name='DETAILS_PROMPT' width='DYNAMIC' height='60' style='EE_MENU_PROMPT_BUTTON' margin_r='44'
+					  ClickHotkey='UI_PAGE_SWITCH' strref='235009' 
+					  OnLeftClick='UIButton_Input_GetSessionDetails("SERVERS_LISTBOX","lan")'>
+			</UIButton>
+		</UIPane>
+		<UIPane width='DYNAMIC' height='DYNAMIC'>
+			<UIButton name='BACK_PROMPT' width='DYNAMIC' height='60' style='EE_MENU_PROMPT_BUTTON'
+					  ClickHotkey='UI_BACK' strref='235475'
+					  OnLeftClick='UIButton_Input_CancelServerBrowser("SCREEN_MULTIPLAYERMENU")'>
+			</UIButton>
+		</UIPane>
+	</UIGrid>
+</UIPane>
+
+<UIPane name='BLOCKED_PROMPT_CONTAINER' y='ALIGN_BOTTOM' height='92' width='PARENT_WIDTH' hidden='true'>
+	<UIGrid name='PROMPT_GRID' x='ALIGN_CENTER' height='60' rows='1' columns='4'>
+		<UIPane width='DYNAMIC' height='DYNAMIC'>
+			<UIButton name='UNBLOCK_PROMPT' width='DYNAMIC' height='60' style='EE_MENU_PROMPT_BUTTON' margin_r='44'
+					  ClickHotkey='UI_ACTIVATE' strref='235384' update='true'
+					  OnUpdate='UIButton_OnUpdate_ToggleUnblockVisibility("blockedlist","BLOCKED_PANE","UNBLOCK_PROMPT")'
+					  OnLeftClick='UIButton_Input_UnBlockPlayer("true","blockedlist")'>
+			</UIButton>
+		</UIPane>
+		<UIPane width='DYNAMIC' height='DYNAMIC'>
+			<UIButton name='BACK_PROMPT' width='DYNAMIC' height='60' style='EE_MENU_PROMPT_BUTTON'
+					  ClickHotkey='UI_BACK' strref='235475'
+					  OnLeftClick='UIButton_Input_CancelServerBrowser("SCREEN_MULTIPLAYERMENU")'>
+			</UIButton>
+		</UIPane>
+	</UIGrid>
+</UIPane>
+
+
+<UIPane x='ALIGN_CENTER' y='ALIGN_CENTER' width='1920' height='1080'>
+
+	<UIPane name="REGION_PANE" x='ALIGN_CENTER' y="890" width="DYNAMIC" height="DYNAMIC">
+		<UIText name="REGION_BANNER" text="PLAYER_TAG" width="DYNAMIC" height="DYNAMIC" fontfamily="EE_Regular" style='2' color='949285'/>
+	</UIPane>
+
+	<UIPane name='TABS' y='2' width='PARENT_WIDTH' height='118' focusable='false'>
+	
+		<UIGrid name='TABS_ORNA' x='ALIGN_CENTER' y='60' width='DYNAMIC' height='DYNAMIC' rows='1' columns='3' ignoreevents=true>
+			<UIIcon img='left_tab_ornament.tga' width='DYNAMIC' height='56' ignoreevents=true/>
+			<UIIcon img='mid_tab_ornament.tga' width='1440' height='56' ignoreevents=true/>
+			<UIIcon img='right_tab_ornament.tga' width='DYNAMIC' height='56' ignoreevents=true/>
+		</UIGrid>
+	
+		<UIPane x='ALIGN_CENTER' width='1330' height='118'>
+		
+			<UIGrid height='118' x='ALIGN_CENTER' width='DYNAMIC' y='44' rows='1' columns='12' name_prefix='false'>
+				
+				<UIPane width='DYNAMIC' height='DYNAMIC'>
+					<UIButton name='PREV_TAB_BTN_PROMPT' y='-10' width='50' height='60' margin_r='12' ClickHotkey='UI_PREVIOUS_TAB'
+							inputmodebehaviour='3' focusable='false' scale='1.1' scale_time='0.1'
+							OnLeftClick='UIButton_Input_SelectAdjacentInGroup("1","prev","true","false","2")'>
+					</UIButton>
+				</UIPane>
+				
+				<UIPane width='DYNAMIC' height='DYNAMIC'>
+					<UIButton name='LAN_TAB' width='DYNAMIC' strref='5206' style='EE_EXPAND_TAB' x='8' margin_r='12' 
+							buttontype='radio' groupid='1' groupmemberid='1' transitiontype='2' transitionduration='0.2'
+							OnSelected='UIButton_Input_ShowLAN()'>
+					</UIButton>
+					<UIPane width='PARENT_WIDTH' height='PARENT_HEIGHT'>
+						<UIIcon width='4' height='8' x='ALIGN_RIGHT' y='ALIGN_CENTER' img='divider_vert.tga'/>
+					</UIPane>
+				</UIPane>
+				
+				<UIPane width='DYNAMIC' height='DYNAMIC'>
+					<UIButton name='INTERNET_TAB' width='DYNAMIC' strref='235567' style='EE_EXPAND_TAB'
+							buttontype='radio' groupid='1' groupmemberid='2' transitiontype='2' x='8' margin_r='12' transitionduration='0.2'
+							OnSelected0='UIButton_Input_SetTabFilter("none")'
+							OnSelected1='UIButton_Input_ShowInternet()'>
+					</UIButton>
+					<UIPane width='PARENT_WIDTH' height='PARENT_HEIGHT'>
+						<UIIcon width='4' height='8' x='ALIGN_RIGHT' y='ALIGN_CENTER' img='divider_vert.tga'/>
+					</UIPane>
+				</UIPane>
+				
+				<UIPane width='DYNAMIC' height='DYNAMIC'>
+					<UIButton name='HISTORY_TAB' width='DYNAMIC' strref='5207' style='EE_EXPAND_TAB' x='8' margin_r='12'
+							buttontype='radio' groupid='1' groupmemberid='3' transitiontype='2' transitionduration='0.2'
+							OnSelected0='UIButton_Input_SetTabFilter("history")'
+							OnSelected1='UIButton_Input_ShowInternet()'
+							OnUnselected='UIButton_Input_SetTabFilter("none")'>
+					</UIButton>
+					<UIPane width='PARENT_WIDTH' height='PARENT_HEIGHT'>
+						<UIIcon width='4' height='8' x='ALIGN_RIGHT' y='ALIGN_CENTER' img='divider_vert.tga'/>
+					</UIPane>
+				</UIPane>
+				
+				<UIPane width='DYNAMIC' height='DYNAMIC'>
+					<UIButton name='FAVORITES_TAB' width='DYNAMIC' strref='5208' style='EE_EXPAND_TAB' x='8' margin_r='12'
+							buttontype='radio' groupid='1' groupmemberid='4' transitiontype='2' transitionduration='0.2'
+							OnSelected0='UIButton_Input_SetTabFilter("favorites")'
+							OnSelected1='UIButton_Input_ShowInternet()'
+							OnSelected2='UIButton_Input_HideObject("FAVORITE_PROMPT")'
+							OnSelected3='UIButton_Input_ShowObject("REMOVE_FAVORITE")'
+							OnUnselected0='UIButton_Input_SetTabFilter("none")' 
+							OnUnselected1='UIButton_Input_HideObject("REMOVE_FAVORITE")' 
+							OnUnselected2='UIButton_Input_ShowObject("FAVORITE_PROMPT")' >
+					</UIButton>
+					<UIPane width='PARENT_WIDTH' height='PARENT_HEIGHT'>
+						<UIIcon width='4' height='8' x='ALIGN_RIGHT' y='ALIGN_CENTER' img='divider_vert.tga'/>
+					</UIPane>
+				</UIPane>
+				
+				<UIPane width='DYNAMIC' height='DYNAMIC'>
+					<UIButton name='FRIENDS_TAB' width='DYNAMIC'  strref='235225' style='EE_EXPAND_TAB' x='8' margin_r='12'
+							buttontype='radio' groupid='1' groupmemberid='5' transitiontype='2' transitionduration='0.2'
+							OnSelected0='UIButton_Input_SetTabFilter("friends")'
+							OnSelected1='UIButton_Input_ShowInternet()'
+							OnUnselected='UIButton_Input_SetTabFilter("none")'>
+					</UIButton>
+					<UIPane width='PARENT_WIDTH' height='PARENT_HEIGHT'>
+						<UIIcon width='4' height='8' x='ALIGN_RIGHT' y='ALIGN_CENTER' img='divider_vert.tga'/>
+					</UIPane>
+				</UIPane>
+				
+				<UIPane width='DYNAMIC' height='DYNAMIC'>
+					<UIButton name='BLOCKED_TAB' width='DYNAMIC' strref='235383' style='EE_EXPAND_TAB' x='8' margin_r='12'
+							buttontype='radio' groupid='1' groupmemberid='6' transitiontype='2' transitionduration='0.2'
+							OnSelected0='UIButton_Input_HideObject("BROWSER_PANE")'
+							OnSelected1='UIButton_Input_HideObject("PROMPT_CONTAINER")'
+							OnSelected2='UIButton_Input_ShowObject("BLOCKED_PANE")'
+							OnSelected3='UIButton_Input_ShowObject("BLOCKED_PROMPT_CONTAINER")'
+							OnUnselected0='UIButton_Input_HideObject("BLOCKED_PANE")'
+							OnUnselected1='UIButton_Input_HideObject("BLOCKED_PROMPT_CONTAINER")'
+							OnUnselected2='UIButton_Input_ShowObject("BROWSER_PANE")'
+							OnUnselected3='UIButton_Input_ShowObject("PROMPT_CONTAINER")'>
+					</UIButton>
+				</UIPane>
+				
+				<UIPane width='DYNAMIC' height='DYNAMIC'>
+					<UIButton name='NEXT_TAB_BTN_PROMPT' x='8' y='-10' width='50' height='60' ClickHotkey='UI_NEXT_TAB'
+							inputmodebehaviour='3' focusable='false' scale='1.1' scale_time='0.1'
+							OnLeftClick='UIButton_Input_SelectAdjacentInGroup("1","next","true","false","2")'>
+					</UIButton>
+				</UIPane>
+				
+			</UIGrid>
+	
+		</UIPane>
+
+	</UIPane>
+	
+	<UIPane name='BROWSER_PANE' x='ALIGN_CENTER' y='144' width='1746' height='801' pass_input_to_children='true'>
+	
+		<UIPane name='BROSWER_CONTENT' x='63' y='0' width='1620' height='779' pass_input_to_children='true'>
+			<UIPane name='HEADER_PC' x='21' y='3' width='1578' height='64' pass_input_to_children='true' showonplatforms='PC,Deck'>
+				<UIButton name='SERVER_NAME' x='0' strref='5217' width='523' height='64' focusable='false'
+						OnLeftClick='UIButton_Input_SetBrowserSort(4)'>	
+					<UIFrame name='selection' style='EE_SELECTION_FRAME' focus_indicator='true'/>
+					<UIText align='left' valign='middle' fontfamily="EE_Regular" style='normal' color='949285'/>
+				</UIButton>
+				<UIButton name='MODULE_NAME' x='523' strref='3049' width='267' height='64' focusable='false'
+						OnLeftClick='UIButton_Input_SetBrowserSort(6)'>
+					<UIFrame name='selection' style='EE_SELECTION_FRAME' focus_indicator='true'/>
+					<UIText align='middle' valign='middle' fontfamily="EE_Regular" style='normal' color='949285'/>
+				</UIButton>
+				<UIButton name='PLAYERS' x='790' strref='5219' width='200' height='64' focusable='false'
+						OnLeftClick='UIButton_Input_SetBrowserSort(8)'>
+					<UIFrame name='selection' style='EE_SELECTION_FRAME' focus_indicator='true'/>
+					<UIText align='middle' valign='middle' fontfamily="EE_Regular" style='normal' color='949285'/>
+				</UIButton>
+				<UIButton name='LEVELS' x='990' strref='5220' width='200' height='64' focusable='false'
+						OnLeftClick='UIButton_Input_SetBrowserSort(10)'>
+					<UIFrame name='selection' style='EE_SELECTION_FRAME' focus_indicator='true'/>
+					<UIText align='middle' valign='middle' fontfamily="EE_Regular" style='normal' color='949285'/>
+				</UIButton>
+				<UIButton name='PVP' x='1190' strref='68487' width='200' height='64' focusable='false'
+						OnLeftClick='UIButton_Input_SetBrowserSort(12)'>
+					<UIFrame name='selection' style='EE_SELECTION_FRAME' focus_indicator='true'/>
+					<UIText align='middle' valign='middle' fontfamily="EE_Regular" style='normal' color='949285'/>
+				</UIButton>
+				<UIButton name='PING' x='1390' strref='5221' width='200' height='64' focusable='false'
+						OnLeftClick='UIButton_Input_SetBrowserSort(2)'>
+					<UIFrame name='selection' style='EE_SELECTION_FRAME' focus_indicator='true'/>
+					<UIText align='middle' valign='middle' fontfamily="EE_Regular" style='normal' color='949285'/>
+				</UIButton>
+			</UIPane>
+			
+			<UIPane name='HEADER_CONSOLE' x='21' y='3' width='1578' height='64' pass_input_to_children='true' showonplatforms='PS5,NX,XBox'>
+				<UIButton name='SERVER_NAME' x='0' strref='5217' width='690' height='64' focusable='false'
+						OnLeftClick='UIButton_Input_SetBrowserSort(4)'>	
+					<UIFrame name='selection' style='EE_SELECTION_FRAME' focus_indicator='true'/>
+					<UIText align='left' valign='middle' fontfamily="EE_Regular" style='normal' color='949285'/>
+				</UIButton>
+				<UIButton name='PLAYERS' x='690' strref='5219' width='300' height='64' focusable='false'
+						OnLeftClick='UIButton_Input_SetBrowserSort(8)'>
+					<UIFrame name='selection' style='EE_SELECTION_FRAME' focus_indicator='true'/>
+					<UIText align='middle' valign='middle' fontfamily="EE_Regular" style='normal' color='949285'/>
+				</UIButton>
+				<UIButton name='LEVELS' x='990' strref='5220' width='300' height='64' focusable='false'
+						OnLeftClick='UIButton_Input_SetBrowserSort(10)'>
+					<UIFrame name='selection' style='EE_SELECTION_FRAME' focus_indicator='true'/>
+					<UIText align='middle' valign='middle' fontfamily="EE_Regular" style='normal' color='949285'/>
+				</UIButton>
+				<UIButton name='PING' x='1290' strref='5221' width='300' height='64' focusable='false'
+						OnLeftClick='UIButton_Input_SetBrowserSort(2)'>
+					<UIFrame name='selection' style='EE_SELECTION_FRAME' focus_indicator='true'/>
+					<UIText align='middle' valign='middle' fontfamily="EE_Regular" style='normal' color='949285'/>
+				</UIButton>
+			</UIPane>
+			
+			<UIPane name='SERVERS_LISTBOX_PANE' y='91' width='1620' height='643' pass_input_to_children='true'>
+				<UIListbox name='SERVERS_LISTBOX' selectonleftclick='true' x='4' y='4' width='1612' height='635' hidescrollbarwhennotneeded='false'
+						showpartialchild='true' scrollbaronright='true' unequalcontrols='true' pass_input_to_children='true' yPadding='4'
+						scrollsegmentsize='32' update='true' OnUpdate='UIListBox_OnUpdate_DisplaySessionList("lan")' updaterate='0.05'>
+					<UIPane name='SERVER'width='PARENT_WIDTH' height='60' prototype='true' tupple='true' focusable='true'
+							OnLeftDoubleClick='UIButton_Input_ConnectToSession("SERVERS_LISTBOX","lan")'
+							OnGainedFocus='UIPane_Input_Select()'>
+						<UIButton height='PARENT_HEIGHT' width='PARENT_WIDTH' style='EE_FOCUS_CHOICE'/>
+						<UIPane name='PC' width='PARENT_WIDTH' height='PARENT_HEIGHT' tupple='true' showonplatforms='PC,Deck'>
+							<UIPane width='60' height='60'>
+								<UIIcon name='PLATFORM_ICON' x='ALIGN_CENTER' y='ALIGN_CENTER' width='30' height='30' img='cross_play.tga' />
+							</UIPane>
+							<UIText name='SERVER_NAME' x='60' width='477' height='60' indent='3' fontfamily="EE_Regular" style='normal' color='949285' align='left' valign='middle'/>
+							<UIText name='SERVER_MODULE' x='537' width='267' height='60' fontfamily="EE_Regular" style='normal' color='949285' align='middle' valign='middle' />
+							<UIIcon img='fx_white.tga' x='537' width='267' height='60' color='292929' alpha='0.7'/>
+							<UIText name='SERVER_PLAYERS' x='804' width='200' height='60' fontfamily="EE_Regular" style='normal' color='949285' align='middle' valign='middle' />
+							<UIText name='SERVER_LEVELS' x='1004' width='200' height='60' fontfamily="EE_Regular" style='normal' color='949285' align='middle' valign='middle' />
+							<UIIcon img='fx_white.tga' x='1004' width='200' height='60' color='292929' alpha='0.7'/>
+							<UIText name='SERVER_PVP' x='1204' width='200' height='60' fontfamily="EE_Regular" style='normal' color='949285' align='middle' valign='middle' />
+							<UIText name='SERVER_PING' x='1404' width='200' height='60' fontfamily="EE_Regular" style='normal' color='949285' align='middle' valign='middle' />
+							<UIIcon img='fx_white.tga' x='1404' width='200' height='60' color='292929' alpha='0.7'/>
+						</UIPane>
+						<UIPane name='CONSOLE' width='PARENT_WIDTH' height='PARENT_HEIGHT' showonplatforms='PS5,NX,XBox'>
+							<UIPane width='60' height='60'>
+								<UIIcon name='PLATFORM_ICON' x='ALIGN_CENTER' y='ALIGN_CENTER' width='30' height='30' img='cross_play.tga' />
+							</UIPane>
+							<UIText name='SERVER_NAME' x='60' width='644' height='60' indent='3' fontfamily="EE_Regular" style='normal' color='949285' align='left' valign='middle'/>
+							<UIText name='SERVER_PLAYERS' x='704' width='300' height='60' fontfamily="EE_Regular" style='normal' color='949285' align='middle' valign='middle' />
+							<UIIcon img='fx_white.tga' x='704' width='300' height='60' color='292929' alpha='0.7'/>
+							<UIText name='SERVER_LEVELS' x='1004' width='300' height='60' fontfamily="EE_Regular" style='normal' color='949285' align='middle' valign='middle' />
+							<UIText name='SERVER_PING' x='1304' width='300' height='60' fontfamily="EE_Regular" style='normal' color='949285' align='middle' valign='middle' />
+							<UIIcon img='fx_white.tga' x='1304' width='300' height='60' color='292929' alpha='0.7'/>
+						</UIPane>
+					</UIPane>
+					<UIScrollBar name='SB' style='EE_SCROLLBAR'/>	
+				</UIListbox>
+			
+				<UIFrame  style="EE_GREY_FRAME"/>
+			</UIPane>
+		</UIPane>
+		
+		<UIFrame style="EE_CHARACTER_MAIN_FRAME"/>
+		<UIIcon name='BG' x='10' y='3' width='1578' height='97' img='tab_bar_bg_1578.tga'/>
+	</UIPane>
+	
+	<UIPane name='BLOCKED_PANE' x='ALIGN_CENTER' y='144' width='1746' height='801' pass_input_to_children='true' hidden='true'>
+	
+		<UIPane name='BLOCKED_CONTENT' x='63' width='1620' height='779' pass_input_to_children='false'>
+			
+			<UIPane name='BLOCKED_LISTBOX_PANE' y='91' width='1620' height='643' pass_input_to_children='true'>
+				<UIListbox name='blockedlist' x='4' y='4' width='1612' height='635' hidescrollbar='false' hidescrollbarwhennotneeded='false'
+						showpartialchild='true' scrollbaronright='true' unequalcontrols='true' pass_input_to_children='true' yPadding='4'
+						scrollsegmentsize='32' selectonleftclick='true' 
+						update='true' OnUpdate='UIListBox_OnUpdate_DisplayBlockedList()'>
+	
+					<UIPane name='PLAYER_PROTO' width='PARENT_WIDTH' height='60' prototype='true' pass_input_to_children='true' tupple='true'
+							update='true' updaterate='0.1'
+							OnUpdate='UIObject_OnUpdate_UpdateBlockedListMember()'
+							OnGainedFocus='UIObject_Misc_SetRowSelected("blockedlist","self:","false")'> 
+							
+                        <UIButton height='PARENT_HEIGHT' width='PARENT_WIDTH' style='EE_FOCUS_CHOICE'/>
+						
+						<UIInputCB inputid='UI_ACTIVATE' callback='UIButton_Input_UnBlockPlayer("true","blockedlist")'/>
+	
+						<UIPane width='120' height='PARENT_HEIGHT'>
+							<UIIcon name='PLATFORM_ICON' x='ALIGN_CENTER' y='ALIGN_CENTER' width='30' height='30' img="cross_play.tga"/>
+						</UIPane>
+						
+						<UIPane x='150' width='900' height='PARENT_HEIGHT'>
+							<UIText name='blocked_playername' x='ALLIGN_CENTER' width='PARENT_WIDTH' height='PARENT_HEIGHT' fontfamily="EE_Regular" style='1' color='0xE6E4D0' align='left' valign='middle'/>
+						</UIPane>
+					</UIPane>
+	
+				</UIListbox>
+				<UIFrame  style="EE_GREY_FRAME"/>
+				
+			</UIPane>
+			
+		</UIPane>
+		
+		<UIFrame style="EE_CHARACTER_MAIN_FRAME"/>
+		<UIIcon name='BG' x='10' y='3' width='1578' height='97' img='tab_bar_bg_1578.tga'/>
+	</UIPane>
+	
+</UIPane>
+
+<UIIcon name="BG_BLACK_FADE" img="fx_white.tga" width='PARENT_WIDTH' height='PARENT_HEIGHT' color='000000' alpha='0.8'/>
+
+<!-- Define the main menu background -->
+<UIPane x='ALIGN_CENTER' y='ALIGN_CENTER' width='DYNAMIC' height='PARENT_HEIGHT'>
+    <UIFrame style='EE_AREAMAP_LIGHT_FRAME' width='PARENT_WIDTH' height='PARENT_HEIGHT' />
+    <UIIcon name="MAIN_MENU_BG" img="menu_bg_art.tga" width='DYNAMIC' height='PARENT_HEIGHT'/>
+</UIPane>
+<UIIcon name="MAIN_MENU_BG_BLACK" img="fx_white.tga" width='PARENT_WIDTH' height='PARENT_HEIGHT' color='000000'/>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Neverwinter Nights 2 -->
+<!-- Copyright � 2006 Obsidian Entertainment, Inc. -->
+
+<UIScene name="SCREEN_MULTIPLAYERMENU"  enhanced='true' fadeout="0.3" fadein="0.3" priority="SCENE_FE_FULLSCREEN" fullscreen=true backoutkey=true
+	OnAdd0=UIScene_OnAdd_DoVersionCheck()
+	OnAdd1=UIScene_OnAdd_SetPlayerTagWithPhotonRegion()
+	OnBackout='UIButton_Input_PregameCancel("SCREEN_MAINMENU","SCREEN_MAINMENU","true")'
+/>
+
+    <!-- Display version information -->
+<UIText name="VersionNum" strref="181313" x="ALIGN_LEFT" y="ALIGN_BOTTOM" width="800" height="26" 
+        fontfamily="Title_Font" style="4" align="left" valign="center"
+        update="true" OnUpdate=UIText_OnUpdate_DisplayVersionNumber() />
+
+<UIPane name="PLAYER_TAG_PANE" x='ALIGN_RIGHT' margin_r='100' y="40" width="DYNAMIC" height="DYNAMIC">
+	<UIText name="PLAYER_TAG" text="PLAYER_TAG" width="DYNAMIC" height="DYNAMIC" fontfamily="EE_Regular" style='2' color='E6E4D0'/>
+</UIPane>
+<UIPane name="REGION_PANE" x='ALIGN_RIGHT' margin_r='100' y="80" width="DYNAMIC" height="DYNAMIC">
+	<UIText name="REGION_BANNER" text="PLAYER_TAG" width="DYNAMIC" height="DYNAMIC" fontfamily="EE_Regular" style='2' color='949285'/>
+</UIPane>
+
+<!-- Controll Button Pane -->
+<UIGrid name='IG' x="ALIGN_CENTER" y="ALIGN_BOTTOM" margin_b='32' height='60' rows='1' columns='2'>
+	<UIButton name="SELECT_BUTTONPROMT" strref="52977" style='EE_MENU_PROMPT_BUTTON'ClickHotkey='UI_ACTIVATE' inputmodebehaviour='3'/>
+	<UIButton name="BACK_BUTTONPROMT" strref="235475" style='EE_MENU_PROMPT_BUTTON' ClickHotkey='UI_BACK'
+		OnLeftClick=UIButton_Input_PregameCancel("SCREEN_MAINMENU","SCREEN_MAINMENU","true") />
+</UIGrid>
+
+<UIPane name='MULTIPLAYER_CONTENT_PANE' width='740' height='1080' x='ALIGN_CENTER' y='ALIGN_CENTER'>
+    <!-- Header -->
+	<UIPane name="TITLE_PANE" x="ALIGN_CENTER" y="15" width="446" height="86" capturemouseclicks="false" ignoreevents="true" >
+		<UIText name="TITLE_TEXT" strref="76" x="ALIGN_CENTER" y="ALIGN_CENTER" width="235" multiline="true"
+			align="center" valign="bottom" fontfamily="EE_Window_Header" style="1" color ="e6e4d0" />
+	</UIPane>
+	<UIIcon img="window_name_back_orna_x2.tga" x="ALIGN_CENTER" y="45" width="446" height="66" capturemouseclicks="false" ignoreevents="true" />
+
+    <!-- Main Menu Buttons -->
+    <UICollapsable name="BUTTON_CONTAINER"  x='ALIGN_CENTER' y='410' height='DYNAMIC' width='PARENT_WIDTH' yPadding='2' isexpanded='true' cycled_navigation='true'>
+        <UIButton name="NewMPGame" strref="181400" style="STYLE_MENU_EE_BUTTON" width="PARENT_WIDTH"
+			OnLeftClick=UIButton_Input_StartMPGame("SCREEN_CAMPAIGNLIST","SCREEN_EE_SERVEROPTIONS") />
+
+		<UIButton name="LoadMPGame" strref="6496" y=46	style="STYLE_MENU_EE_BUTTON" width='PARENT_WIDTH'
+			OnLeftClick=UIButton_Input_StartMPGame("SCREEN_PREGAME_LOADGAME","SCREEN_EE_SERVEROPTIONS") />
+
+		<UIButton name="JoinInternetGame" strref="235446" y=92 style="STYLE_MENU_EE_BUTTON" width='PARENT_WIDTH'
+			OnLeftClick=UIButton_Input_StartInternetBrowser() />
+
+		<UIButton name="JoinLANGame" text="LAN" y=138 style="STYLE_MENU_EE_BUTTON" width='PARENT_WIDTH'
+			OnLeftClick=UIButton_Input_ScreenOpen("SCREEN_EE_BROWSER") />
+
+		<UIButton name="DirectConnect" strref="104" y=184 style="STYLE_MENU_EE_BUTTON" width='PARENT_WIDTH'
+			OnLeftClick=UIButton_Input_ScreenOpen("SCREEN_DIRECTCONNECT") />
+	</UICollapsable>
+</UIPane>
+
+<UIPane x='ALIGN_CENTER' y='ALIGN_CENTER' width='DYNAMIC' height='PARENT_HEIGHT'>
+    <UIFrame style='EE_AREAMAP_LIGHT_FRAME' width='PARENT_WIDTH' height='PARENT_HEIGHT' />
+    <UIIcon name="MAIN_MENU_BG" img="menu_bg_art.tga" width='DYNAMIC' height='PARENT_HEIGHT'/>
+</UIPane>
+<UIIcon name="MAIN_MENU_BG_BLACK" img="fx_white.tga" width='PARENT_WIDTH' height='PARENT_HEIGHT' color='000000'/>
