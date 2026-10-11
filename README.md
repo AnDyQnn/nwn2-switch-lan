@@ -1,5 +1,7 @@
 ![NWN2 LAN co-op on Switch](docs/banner.png)
 
+📖 **Статья на Хабре / Article (RU):** [Как я вернул LAN-кооп в Neverwinter Nights 2 на Switch](https://habr.com/ru/articles/1092982/)
+
 # Neverwinter Nights 2 EE — LAN co-op for Nintendo Switch (Atmosphere)
 
 **[Русский](#русский) · [English](#english)**
